@@ -13,7 +13,7 @@
 # limitations under the License.
 
 -- Creates a latest snapshot view with Best Sellers & Price Benchmarks
-CREATE OR REPLACE VIEW `{project_id}.{dataset}.market_insights_snapshot_view` AS (
+CREATE OR REPLACE VIEW `{project_id}.{dataset}.market_insights_snapshot_view_{merchant_id}` AS (
   WITH
     price_benchmarks AS (
       SELECT
@@ -44,7 +44,7 @@ CREATE OR REPLACE VIEW `{project_id}.{dataset}.market_insights_snapshot_view` AS
             sale_price.value,
             price.value) AS effective_price_value
         FROM
-          `{project_id}.{dataset}.product_detailed_materialized`
+          `{project_id}.{dataset}.product_detailed_materialized_{merchant_id}`
       ) AS product
       INNER JOIN (
         SELECT
@@ -83,7 +83,7 @@ CREATE OR REPLACE VIEW `{project_id}.{dataset}.market_insights_snapshot_view` AS
          AND sale_price_effective_end_date > CURRENT_TIMESTAMP(),
        sale_price.value,
        price.value) AS effective_price,
-    FROM `{project_id}.{dataset}.product_detailed_materialized`
+    FROM `{project_id}.{dataset}.product_detailed_materialized_{merchant_id}`
   ) AS product
   LEFT JOIN price_benchmarks
     ON product.unique_product_id = price_benchmarks.unique_product_id

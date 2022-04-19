@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CREATE OR REPLACE TABLE `{project_id}.{dataset}.market_insights_best_sellers_materialized` AS (
+CREATE OR REPLACE TABLE `{project_id}.{dataset}.market_insights_best_sellers_materialized_{merchant_id}` AS (
   WITH
     best_sellers AS (
       SELECT

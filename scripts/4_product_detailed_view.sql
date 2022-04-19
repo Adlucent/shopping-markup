@@ -14,7 +14,7 @@
 
 -- Creates a latest snapshot view of products combined with performance metrics.
 CREATE OR REPLACE VIEW
-  `{project_id}.{dataset}.product_detailed_view` AS
+  `{project_id}.{dataset}.product_detailed_view_{merchant_id}` AS
 WITH
   ProductMetrics AS (
     SELECT
@@ -28,7 +28,7 @@ WITH
       SUM(product_metrics_view.conversions) AS conversions_30_days,
       SUM(product_metrics_view.conversions_value) AS conversions_value_30_days
     FROM
-      `{project_id}.{dataset}.product_metrics_view` product_metrics_view
+      `{project_id}.{dataset}.product_metrics_view_{external_customer_id}` product_metrics_view
     INNER JOIN
       `{project_id}.{dataset}.product_view_{merchant_id}` product_view
       ON
@@ -121,7 +121,7 @@ WITH
         AND ProductMetrics.unique_product_id = product_view.unique_product_id
         AND ProductMetrics.target_country = product_view.target_country
     LEFT JOIN
-      `{project_id}.{dataset}.customer_view` customer_view
+      `{project_id}.{dataset}.customer_view_{external_customer_id}` customer_view
       ON
         customer_view.externalcustomerid = ProductMetrics.externalcustomerid
         AND customer_view.data_date = ProductMetrics.data_date

@@ -13,7 +13,7 @@
 # limitations under the License.
 
 -- Creates a historical view for Performance, Status, Price & Price Benchmarks.
-CREATE OR REPLACE VIEW `{project_id}.{dataset}.market_insights_historical_view` AS (
+CREATE OR REPLACE VIEW `{project_id}.{dataset}.market_insights_historical_view_{merchant_id}` AS (
       SELECT
         data_date,
         unique_product_id,
