@@ -16,7 +16,7 @@
 
 CREATE OR REPLACE PROCEDURE `{project_id}.{dataset}.product_historical_proc`()
 BEGIN
-  CREATE OR REPLACE TABLE `{project_id}.{dataset}.product_historical_materialized`
+  CREATE OR REPLACE TABLE `{project_id}.{dataset}.product_historical_materialized_{merchant_id}`
   AS (
     SELECT
       data_date,
@@ -38,7 +38,7 @@ BEGIN
       IFNULL(SUM(clicks_30_days), 0) AS total_clicks_30_days,
       IFNULL(SUM(cost_30_days), 0) AS total_cost_30_days
     FROM
-      `{project_id}.{dataset}.product_detailed_view`
+      `{project_id}.{dataset}.product_detailed_view_{merchant_id}`
     WHERE
       data_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
     GROUP BY

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-CREATE OR REPLACE VIEW `{project_id}.{dataset}.product_metrics_view`
+CREATE OR REPLACE VIEW `{project_id}.{dataset}.product_metrics_view_{external_customer_id}`
   AS (
     WITH
       CountryTable AS (
